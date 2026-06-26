@@ -127,9 +127,9 @@ export default function Home() {
     setModal(null)
   }
 
-  const stages = ['همه', 'Group Stage', 'Round of 16', 'Quarter-Finals', 'Semi-Finals', 'Final']
+  const stages = ['همه', 'Group Stage', 'Round of 32', 'Round of 16', 'Quarter-Finals', 'Semi-Finals', 'Final']
   const stageMap: Record<string, string> = {
-    'همه': '', 'Group Stage': 'GROUP_STAGE', 'Round of 16': 'LAST_16',
+    'همه': '', 'Group Stage': 'GROUP_STAGE', 'Round of 32': 'ROUND_32', 'Round of 16': 'LAST_16',
     'Quarter-Finals': 'QUARTER_FINALS', 'Semi-Finals': 'SEMI_FINALS', 'Final': 'FINAL'
   }
 
