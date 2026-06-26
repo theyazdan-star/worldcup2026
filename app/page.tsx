@@ -9,7 +9,7 @@ const WC_ID = 'WC'
 const COUNTRY_FLAGS: Record<string, string> = {
   'United States': '🇺🇸', 'Mexico': '🇲🇽', 'Canada': '🇨🇦', 'Brazil': '🇧🇷',
   'Argentina': '🇦🇷', 'France': '🇫🇷', 'Germany': '🇩🇪', 'Spain': '🇪🇸',
-  'England': '🏴󠁧󠁢󠁥󠁮󠁬󠁿', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱', 'Belgium': '🇧🇪',
+  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱', 'Belgium': '🇧🇪',
   'Italy': '🇮🇹', 'Japan': '🇯🇵', 'South Korea': '🇰🇷', 'Australia': '🇦🇺',
   'Morocco': '🇲🇦', 'Senegal': '🇸🇳', 'Nigeria': '🇳🇬', 'Ghana': '🇬🇭',
   'Saudi Arabia': '🇸🇦', 'Iran': '🇮🇷', 'Qatar': '🇶🇦', 'Uruguay': '🇺🇾',
@@ -68,7 +68,7 @@ export default function Home() {
         f: 'FINAL',
       }
       const mapped = (data.games || []).map((m: any) => ({
-        id: m.id,
+        id: Number(m.id),
         utcDate: m.local_date,
         status: (m.finished === 'TRUE' || m.finished === true) ? 'FINISHED' : 'SCHEDULED',
         stage: stageTypeMap[m.type] || 'GROUP_STAGE',
