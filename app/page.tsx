@@ -57,12 +57,31 @@ export default function Home() {
   async function fetchMatches() {
     setLoading(true)
     try {
-      const res = await fetch(
-        `https://api.football-data.org/v4/competitions/${WC_ID}/matches`,
-        { headers: { 'X-Auth-Token': API_KEY! } }
-      )
+      const res = await fetch('https://worldcup26.ir/get/games')
       const data = await res.json()
-      setMatches(data.matches || [])
+      const stageTypeMap: Record<string, string> = {
+        group: 'GROUP_STAGE',
+        r32: 'ROUND_32',
+        r16: 'LAST_16',
+        qf: 'QUARTER_FINALS',
+        sf: 'SEMI_FINALS',
+        f: 'FINAL',
+      }
+      const mapped = (data.games || []).map((m: any) => ({
+        id: m.id,
+        utcDate: m.local_date,
+        status: (m.finished === 'TRUE' || m.finished === true) ? 'FINISHED' : 'SCHEDULED',
+        stage: stageTypeMap[m.type] || 'GROUP_STAGE',
+        homeTeam: { name: m.home_team_name_en || m.home_team_label || '?' },
+        awayTeam: { name: m.away_team_name_en || m.away_team_label || '?' },
+        score: {
+          fullTime: {
+            home: m.home_score !== undefined && m.home_score !== null ? Number(m.home_score) : null,
+            away: m.away_score !== undefined && m.away_score !== null ? Number(m.away_score) : null,
+          }
+        }
+      }))
+      setMatches(mapped)
     } catch {
       setMatches([])
     }
