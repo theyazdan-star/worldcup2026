@@ -55,33 +55,6 @@ export default function Home() {
   }, [user])
 
   async function fetchMatches() {
-  setLoading(true)
-  try {
-    const res = await fetch(
-      'https://api.fifa.com/api/v3/calendar/matches?idCompetition=17&idSeason=255711&count=200&language=en',
-      { headers: { 'Origin': 'https://www.fifa.com' } }
-    )
-    const data = await res.json()
-    const matches = (data.Results || []).map((m: any) => ({
-      id: m.IdMatch,
-      utcDate: m.Date,
-      status: m.MatchStatus === 0 ? 'SCHEDULED' : m.MatchStatus === 1 ? 'IN_PLAY' : 'FINISHED',
-      stage: m.IdRound,
-      homeTeam: { name: m.HomeTeam?.TeamName?.[0]?.Description || '?' },
-      awayTeam: { name: m.AwayTeam?.TeamName?.[0]?.Description || '?' },
-      score: {
-        fullTime: {
-          home: m.HomeTeam?.Score ?? null,
-          away: m.AwayTeam?.Score ?? null,
-        }
-      }
-    }))
-    setMatches(matches)
-  } catch {
-    setMatches([])
-  }
-  setLoading(false)
-  }
     setLoading(true)
     try {
       const res = await fetch(
@@ -95,7 +68,6 @@ export default function Home() {
     }
     setLoading(false)
   }
-
   async function fetchPredictions() {
     const { data } = await supabase.from('predictions').select('*').eq('user_id', user.id)
     const map: Record<number, any> = {}
