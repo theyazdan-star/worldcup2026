@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import { supabase } from '@/lib/supabase'
 
 const API_KEY = process.env.NEXT_PUBLIC_FOOTBALL_API_KEY
-const WC_ID = 2000
+const WC_ID = 'WC'
 
 const COUNTRY_FLAGS: Record<string, string> = {
   'United States': '🇺🇸', 'Mexico': '🇲🇽', 'Canada': '🇨🇦', 'Brazil': '🇧🇷',
